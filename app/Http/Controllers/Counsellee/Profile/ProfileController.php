@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Counsellor\Profile;
+namespace App\Http\Controllers\Counsellee\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Models\Counsellee;

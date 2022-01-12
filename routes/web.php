@@ -29,7 +29,7 @@ Route::group(['namespace' => 'Counsellee','prefix' => 'counsellees'], function()
     Route::post('/register', [RegisterController::class, 'register'])->name('counsellee.register');
     Route::get('/login', [LoginController::class, 'loginView'])->name('counsellee.login-view');
     Route::post('/login-post', [LoginController::class, 'login'])->name('counsellee.login');
-    Route::get('/profile', [ProfileController::class, 'getProfile'])->name('counselee.profile');
+    Route::get('/profile', [ProfileController::class, 'getProfile'])->name('counsellee.profile');
 });
 
 //Counsellors Routes

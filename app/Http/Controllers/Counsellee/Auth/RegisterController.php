@@ -29,7 +29,7 @@ class RegisterController extends Controller
             'password' => app('hash')->make($request->password),
         ]);
 
-        return redirect()->back()->with('success', 'Registered Successfully');
+        return redirect()->route('counsellees.profile')->with('success', 'Registered Successfully');
 
         /*return redirect('counsellees/dashboard')->with('success', 'Registeration Successful')*/;
     }

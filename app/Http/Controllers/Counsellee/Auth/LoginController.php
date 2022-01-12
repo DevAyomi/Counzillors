@@ -21,7 +21,7 @@ class LoginController extends Controller
 
         if(Auth::guard('counsellee')->attempt($request->only('email','password'))){
             
-            return redirect()->back()->with('status','You are Logged in as Admin!');
+            return redirect()->route('counsellee.profile')->with('status','You are Logged in as Admin!');
                
         }else{
              //Authentication failed...
