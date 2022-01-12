@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Counsellee\Profile;
 use App\Http\Controllers\Controller;
 use App\Models\Counsellee;
 use App\Models\Counsellor;
+use App\Traits\UploadTrait;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
+    use UploadTrait;
 
     /**
      * Updates a Counsellee's Profile
@@ -24,13 +26,23 @@ class ProfileController extends Controller
         $this->validate($request, [
             'firstname' => 'required|max:50',
             'lastname' => 'required|max:50',
+            'imgpath' => 'required|image',
             'dob' => 'required|max:10'
         ]);
 
-        Counsellee::findOrFail(auth()->id())
-            ->update($request->only(['firstname', 'lastname', 'dob']));
+        if ($request->has('imgpath')) {
+            $binFile = $request->file('imgpath');
+            $folder = '/profile_picture/';
+            $name = 'profile_picture' . time();
 
-        return $this->successResponse("Counsellee's Profile updated successfully");
+            $filepath = $folder . $name . '.' . $binFile->getClientOriginalExtension();
+            $this->uploadOne($binFile, $folder, 'public', $name);
+
+            Counsellee::findOrFail(auth()->id())
+                ->update($request->only(['firstname', 'lastname', 'dob', 'imgpath']));
+
+            return $this->successResponse("Counsellee's Profile updated successfully");
+        }
     }
 
     /**

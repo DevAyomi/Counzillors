@@ -8,9 +8,11 @@ use App\Models\Counsellor;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
+use App\Traits\UploadTrait;
 
 class ProfileController extends Controller
 {
+    use UploadTrait;
 
     /**
      * Updates a Counsellor's Profile
@@ -24,13 +26,25 @@ class ProfileController extends Controller
         $this->validate($request, [
             'firstname' => 'required|max:50',
             'lastname' => 'required|max:50',
+            'imgpath' => 'required|image',
             'dob' => 'required|max:10'
         ]);
 
-        Counsellor::findOrFail(auth()->id())
-            ->update($request->only(['firstname', 'lastname', 'dob']));
+        if ($request->has('imgpath')) {
+            $binFile = $request->file('imgpath');
+            $folder = '/profile_picture/';
+            $name = 'profile_picture' . time();
 
-        return $this->successResponse("Counsellor's Profile updated successfully");
+            $filepath = $folder . $name . '.' . $binFile->getClientOriginalExtension();
+            $this->uploadOne($binFile, $folder, 'public', $name);
+
+            Counsellor::findOrFail(auth()->id())
+                ->update($request->only(['firstname', 'lastname', 'dob', 'imgpath']));
+
+            return $this->successResponse("Counsellor's Profile updated successfully");
+        }
+
+
     }
 
     /**
