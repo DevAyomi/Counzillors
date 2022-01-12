@@ -30,6 +30,8 @@ Route::group(['namespace' => 'Counsellee','prefix' => 'counsellees'], function()
     Route::get('/login', [LoginController::class, 'loginView'])->name('counsellee.login-view');
     Route::post('/login-post', [LoginController::class, 'login'])->name('counsellee.login');
     Route::get('/profile', [ProfileController::class, 'getProfile'])->name('counsellee.profile');
+   Route::get('/view', [ProfileController::class, 'view'])->name('counsellees.edit');
+
 });
 
 //Counsellors Routes

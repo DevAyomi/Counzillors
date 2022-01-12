@@ -105,4 +105,8 @@ class ProfileController extends Controller
 
         return $this->successResponse("Password updated successfully");
     }
+
+    public function view(){
+        return view('counsellees/edit');
+    }
 }
