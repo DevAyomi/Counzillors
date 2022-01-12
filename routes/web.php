@@ -19,12 +19,12 @@ use App\Http\Controllers\Counsellor\Auth\RegisterControllers;
 |
 */
 
-Route::get('/', function(){
+Route::get('/', function () {
     return view('welcome');
 });
 
 //Counsellees Routes
-Route::group(['namespace' => 'Counsellee','prefix' => 'counsellees'], function() {
+Route::group(['namespace' => 'Counsellee', 'prefix' => 'counsellees'], function () {
     Route::get('/view', [RegisterController::class, 'viewRegister'])->name('counsellee.register-view');
     Route::post('/register', [RegisterController::class, 'register'])->name('counsellee.register');
     Route::get('/login', [LoginController::class, 'loginView'])->name('counsellee.login-view');
@@ -33,7 +33,7 @@ Route::group(['namespace' => 'Counsellee','prefix' => 'counsellees'], function()
 });
 
 //Counsellors Routes
-Route::group(['namespace' => 'Counsellor','prefix' => 'counsellors'], function() {
+Route::group(['namespace' => 'Counsellor', 'prefix' => 'counsellors'], function () {
     Route::get('/register', [RegisterControllers::class, 'viewRegister'])->name('counsellor.register-view');
     Route::post('/register-post', [RegisterControllers::class, 'register'])->name('counsellor.register');
     Route::get('/login-view', [LoginControllers::class, 'loginView'])->name('counsellors.login-view');
